@@ -48,12 +48,12 @@ export default observer(function ActivityForm(){
     return(
         <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
-                <Form.Input Placeholder='Title' value={activity.title} name='title' onChange={handleInputChange}/>
-                <Form.TextArea Placeholder='Description' value={activity.description} name='description' onChange={handleInputChange}/>
-                <Form.Input Placeholder='Cateogry' value={activity.category} name='category' onChange={handleInputChange}/>
-                <Form.Input type='Date' Placeholder='Date' value={activity.date} name='date' onChange={handleInputChange}/>
-                <Form.Input Placeholder='City' value={activity.city} name='city' onChange={handleInputChange}/>
-                <Form.Input Placeholder='Venue' value={activity.venue} name='venue' onChange={handleInputChange}/>
+                <Form.Input placeholder='Title' value={activity.title} name='title' onChange={handleInputChange}/>
+                <Form.TextArea placeholder='Description' value={activity.description} name='description' onChange={handleInputChange}/>
+                <Form.Input placeholder='Cateogry' value={activity.category} name='category' onChange={handleInputChange}/>
+                <Form.Input type='Date' placeholder='Date' value={activity.date} name='date' onChange={handleInputChange}/>
+                <Form.Input placeholder='City' value={activity.city} name='city' onChange={handleInputChange}/>
+                <Form.Input placeholder='Venue' value={activity.venue} name='venue' onChange={handleInputChange}/>
                 <Button loading={loading} floated='right' positive type='submit' content='Submit' />
                 <Button as={Link} to='/activities' floated='right' type='button' content='Cancel' />
             </Form>
