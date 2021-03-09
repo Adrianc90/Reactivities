@@ -20,6 +20,16 @@ export default class ActivityStore {
             .sort((x, y) => Date.parse(x.date) - Date.parse(y.date));
     }
 
+    get groupedActivities() {
+        return Object.entries(
+            this.activitiesByDate.reduce((activities, activity) => {
+                const date = activity.date;
+                activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+                return activities;
+            }, {} as { [key: string]: Activity[] })
+        )
+    }
+
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
