@@ -3,11 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
 using AutoMapper;
-using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper.QueryableExtensions;
+using Application.Interfaces;
 
 namespace Application.Activities
 {
@@ -19,15 +19,18 @@ namespace Application.Activities
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
+                _userAccessor = userAccessor;
                 _mapper = mapper;
                 _context = context;
             }
 
             public async Task<Result<List<ActivityDTO>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var activities = await _context.Activities.ProjectTo<ActivityDTO>(_mapper.ConfigurationProvider).ToListAsync();
+                var activities = await _context.Activities.ProjectTo<ActivityDTO>(_mapper.ConfigurationProvider, new {currentUserName= _userAccessor.GetUserName()})
+                    .ToListAsync();
                 return Result<List<ActivityDTO>>.Success(activities);
             }
         }
